@@ -119,6 +119,7 @@
                 clearInterval(PLAYTIME);
                 timerStart = false;
                 document.getElementById('press-btn').disabled = true;
+                time = 0; // 타이머 종료 후에도 음수의 시간이 흐르는 현상을 원천 방지
                 document.getElementById('timeDisplay').innerText = "시간 종료!"
             }
             document.getElementById('timeDisplay').innerText = "남은시간 : " +  (time/1000) + " 초"
@@ -150,7 +151,8 @@
 
             // 초기 값 설정
         counter.innerText = GGANG_count + "번 때렸습니다!";
-/*
+
+        /* pointerdown, poinnterup 사용으로 인해 폐기된 코드
         btn.addEventListener('mousedown', () => 
             {
             if(timerStart == false) GGANG();
@@ -170,7 +172,8 @@
             });
 
         btn.addEventListener('touchend', () => {image.src = "onha.png";});
-*/
+        */
+
         btn.addEventListener('pointerdown', handleHit);
         btn.addEventListener('pointerup', () => {image.src = "onha.png";});
 
