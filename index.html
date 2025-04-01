@@ -110,10 +110,9 @@
         {
             if (!timerStart) 
             {
-                clearInterval(PLAYTIME);
-                return;
-            }
-            
+            clearInterval(PLAYTIME);
+            return;
+            }   
             time = time - 1000;
             if(time <= 0)
             {
@@ -151,7 +150,7 @@
 
             // 초기 값 설정
         counter.innerText = GGANG_count + "번 때렸습니다!";
-
+/*
         btn.addEventListener('mousedown', () => 
             {
             if(timerStart == false) GGANG();
@@ -171,7 +170,20 @@
             });
 
         btn.addEventListener('touchend', () => {image.src = "onha.png";});
-        
+*/
+        btn.addEventListener('pointerdown', handleHit);
+        btn.addEventListener('pointerup', () => {image.src = "onha.png";});
+
+        function handleHit() 
+        {
+        if (!timerStart) GGANG();
+
+        if (btn.disabled) return; // 버튼이 비활성화면 아무것도 안함
+
+        image.src = "ggang.png";
+        GGANG_count++;
+        counter.innerText = GGANG_count + "번 때렸습니다!";
+        }
 
 
     </script>
