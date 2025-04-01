@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온앤온 때리기</title>
+    <style>
+
+        .img
+        {
+            display: flex;
+            justify-content: center;  /* 가로 가운데 */
+            align-items: center;      /* 세로 가운데 */
+            height: 300px;            /* 예시용 높이 */
+        }
+
+        .time_table
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            font-size: 15pt; 
+        }
+
+        .counting_class
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            font-size: 20pt;
+        }
+
+        .bttn
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+
+        }
+
+        .reset{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+
+        }
+
+        #press-btn
+        {
+            width: 100px;
+            height: 50px;
+            font-size: 15pt;
+        }
+
+        #reset-btn
+        {
+            width: 100px;
+            height: 50px;
+            font-size: 15pt;
+        }
+        
+    </style>
+</head>
+<body class="BakcGround">
+    <div class="img">
+        <img class="galtong" id="on_and_on" src="onha.png" alt="이미지 없음">
+    </div>
+
+    <div class="time_table" id="timeDisplay">
+
+    </div>
+    
+    <div class="counting_class" id="counting_id"> 
+
+    </div>
+
+    <div class="bttn">
+        <button id="press-btn">때리기!</button>
+    </div>
+
+    <div class="reset">
+        <button id="reset-btn" onclick="count_reset()">리셋!</button>
+    </div>
+
+    
+    <script>
+
+        const preloadImage = (src) => 
+        {
+            const img = new Image();
+            img.src = src;
+        };
+        preloadImage("ggang.png");
+        preloadImage("onha.png");
+
+        let time = 30000;
+        let timerStart = false;
+
+        let GGANG_count = 0;
+        document.getElementById('counting_id').innerText = GGANG_count + "번 때렸습니다!"
+        document.getElementById('timeDisplay').innerText = "남은시간 : " +  (time/1000) + " 초"
+        
+        function timer()
+        {
+            PLAYTIME = setInterval(function()
+        {
+            time = time - 1000;
+            if(time <= 0)
+            {
+                clearInterval(PLAYTIME);
+                timerStart = false;
+                document.getElementById('press-btn').disabled = true;
+                document.getElementById('timeDisplay').innerText = "시간 종료!"
+            }
+            document.getElementById('timeDisplay').innerText = "남은시간 : " +  (time/1000) + " 초"
+        }, 1000);
+
+            
+        }
+
+        function GGANG() 
+        { 
+            if(timerStart) return;
+            timerStart = true;
+            timer();  
+        }
+
+        function count_reset()
+        {
+            GGANG_count = 0;
+            document.getElementById('counting_id').innerText = GGANG_count + "번 때렸습니다!"
+            time = 30000;
+            document.getElementById('timeDisplay').innerText = "남은시간 : " +  (time/1000) + " 초"
+            timerStart = false;
+            document.getElementById('press-btn').disabled = false;
+        }
+
+        const btn = document.getElementById('press-btn');
+        const image = document.getElementById('on_and_on');
+        const counter = document.getElementById('counting_id');
+
+            // 초기 값 설정
+        counter.innerText = GGANG_count + "번 때렸습니다!";
+
+        btn.addEventListener('mousedown', () => 
+            {
+            if(timerStart == false) GGANG();
+            image.src = "ggang.png"; 
+            GGANG_count += 1; 
+            counter.innerText = GGANG_count + "번 때렸습니다!";
+            });
+
+        btn.addEventListener('mouseup', () => {image.src = "onha.png";});
+
+        btn.addEventListener('touchstart', () => 
+            {
+            if(timerStart == false) GGANG();
+            image.src = "ggang.png"; 
+            GGANG_count += 1; 
+            counter.innerText = GGANG_count + "번 때렸습니다!";
+            });
+
+        btn.addEventListener('touchend', () => {image.src = "onha.png";});
+        
+
+
+    </script>
+</body>
+</html>
