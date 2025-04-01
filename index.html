@@ -108,6 +108,12 @@
         {
             PLAYTIME = setInterval(function()
         {
+            if (!timerStart) 
+            {
+                clearInterval(PLAYTIME);
+                return;
+            }
+            
             time = time - 1000;
             if(time <= 0)
             {
@@ -131,11 +137,11 @@
 
         function count_reset()
         {
-            GGANG_count = 0;
-            document.getElementById('counting_id').innerText = GGANG_count + "번 때렸습니다!"
             time = 30000;
             document.getElementById('timeDisplay').innerText = "남은시간 : " +  (time/1000) + " 초"
             timerStart = false;
+            GGANG_count = 0;
+            document.getElementById('counting_id').innerText = GGANG_count + "번 때렸습니다!"
             document.getElementById('press-btn').disabled = false;
         }
 
